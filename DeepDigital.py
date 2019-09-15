@@ -116,6 +116,7 @@ delta_pred_true_discrep = Y_pred_discrep_prob - true_prob_discrep
 sorted_delta_discrep = np.argsort(delta_pred_true_discrep)
 most_important_discrep = sorted_delta_discrep[-6:]
 
+#Uncomment this line to visualise wrongly predicted numbers
 #display_discrep(most_important_discrep, X_val_discrep, Y_pred_classes_discrep, Y_true_discrep)
 
 #Predicting test data 
@@ -126,10 +127,8 @@ test_out_x = test_x.reshape(test_num_images,28,28,1)
 test_out_x = test_out_x/np.max(test_x)
 
 preds = num_model.predict_classes(test_out_x)
-#preds = np.argmax(preds, axis=1)
 preds - pd.Series(preds,name="Label")
 
-#submission = pd.concat([pd.Series(range(1, len(preds)+1, name="ImageId"), preds], axis=1) 
 submission = pd.DataFrame({"ImageId": list(range(1,len(preds)+1)), "label":preds})
 submission.to_csv("predicted_digits.csv", index=False)
 

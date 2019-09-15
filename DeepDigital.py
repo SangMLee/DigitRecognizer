@@ -129,7 +129,8 @@ preds = num_model.predict_classes(test_out_x)
 #preds = np.argmax(preds, axis=1)
 preds - pd.Series(preds,name="Label")
 
-submission = pd.concat([pd.Series(range(1, 28001), name="ImageId"), preds], axis=1) 
-submission.to_csv("cnn_mnist_datagen.csv", index=False)
+#submission = pd.concat([pd.Series(range(1, len(preds)+1, name="ImageId"), preds], axis=1) 
+submission = pd.DataFrame({"ImageId": list(range(1,len(preds)+1)), "label":preds})
+submission.to_csv("predicted_digits.csv", index=False)
 
 
